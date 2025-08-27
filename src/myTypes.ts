@@ -23,7 +23,12 @@ export type Review = {
     game_id: string;
 }
 
-export type AddGame = {
+export type AddGameType = {
     title: string;
     platform: string[];
+}
+
+export type UpdateGameType = {
+    title?: string;
+    platform?: string[];
 }

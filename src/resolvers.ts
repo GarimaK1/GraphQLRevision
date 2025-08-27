@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import db from './_db.js';
-import { Game, Author, Review, AddGame } from './myTypes.js';
+import { Game, Author, Review, AddGameType, UpdateGameType } from './myTypes.js';
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -48,14 +48,30 @@ const resolvers = {
       db.games = db.games.filter(game => game.id !== args.id);
       return db.games;
     },
-    addGame(parent: any, args: { game: AddGame}) {
-      const newGame = { 
+    addGame(parent: any, args: { game: AddGameType }) {
+      const newGame = {
         ...args.game,
         id: uuidv4()
       };
 
       db.games.push(newGame);
       return newGame;
+    },
+    updateGame(parent: any, args: { id: string; game: UpdateGameType; }) {
+      db.games = db.games.map(game => {
+        if (game.id === args.id) {
+          const updatedGame = {
+            ...game,
+            ...args.game
+          }
+          return updatedGame;
+        }
+
+        return game;
+      })
+
+      const game = db.games.find(game => game.id === args.id);
+      return game;
     }
   }
 };
