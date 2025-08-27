@@ -22,3 +22,8 @@ export type Review = {
     author_id: string;
     game_id: string;
 }
+
+export type AddGame = {
+    title: string;
+    platform: string[];
+}

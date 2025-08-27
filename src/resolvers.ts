@@ -1,5 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import db from './_db.js';
-import { Game, Author, Review } from './myTypes.js';
+import { Game, Author, Review, AddGame } from './myTypes.js';
 
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -41,24 +42,40 @@ const resolvers = {
     author(parent: Review) {
       return db.authors.find(author => author.id === parent.author_id);
     }
+  },
+  Mutation: {
+    deleteGame(parent: any, args: { id: string; }) {
+      db.games = db.games.filter(game => game.id !== args.id);
+      return db.games;
+    },
+    addGame(parent: any, args: { game: AddGame}) {
+      const newGame = { 
+        ...args.game,
+        id: uuidv4()
+      };
+
+      db.games.push(newGame);
+      return newGame;
+    }
   }
 };
 
 export default resolvers;
 
-// query NestedQuery($authorId: ID!) {
-//   author(id: $authorId) {
+// query NestedQueryExample($reviewId: ID!) {
+//   review(id: $reviewId) {
 //     id
-//     name
-//     reviews {
+//     rating
+//     game {
 //       id
-//       rating
-//       game {
+//       title
+//       reviews {
 //         id
-//         title
-//       }
-//       author {
-//         name
+//         rating
+//         author {
+//           id
+//           name
+//         }
 //       }
 //     }
 //   }

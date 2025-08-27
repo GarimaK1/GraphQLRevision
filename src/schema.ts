@@ -32,6 +32,9 @@ export const typeDefs = `#graphql
     reviews: [Review!] 
   }
 
+  # The "Query" type is special: it lists all of the available queries that
+  # clients can execute, along with the return type for each. In this
+  # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     books: [Book]
     book(title: String!): Book
@@ -43,10 +46,12 @@ export const typeDefs = `#graphql
     author(id: ID!): Author
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
+  type Mutation {
+    deleteGame(id: ID!): [Game]
+    addGame(game: AddGameInput!): Game
+  }
+  input AddGameInput {
+    title: String!
+    platform: [String!]!
   }
 `;
