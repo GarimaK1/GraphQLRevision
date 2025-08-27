@@ -57,12 +57,12 @@ const resolvers = {
       db.games.push(newGame);
       return newGame;
     },
-    updateGame(parent: any, args: { id: string; game: UpdateGameType; }) {
+    updateGame(parent: any, args: { id: string; gameUpdates: UpdateGameType; }) {
       db.games = db.games.map(game => {
         if (game.id === args.id) {
           const updatedGame = {
             ...game,
-            ...args.game
+            ...args.gameUpdates
           }
           return updatedGame;
         }
