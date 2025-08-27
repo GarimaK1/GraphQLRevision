@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // ES2022: Or a later ECMAScript version supported by your Node.js version
+    "module": "Node16", // Node16, or later: Crucial for ESM in Node.js
+    "moduleResolution": "Node16", // Node16, or later: Essential for resolving modules correctly in ESM
+    "strict": true, // Recommended for better type safety
+    "esModuleInterop": true, // Allows default imports from CommonJS modules
+    "skipLibCheck": true, // Skips type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensures consistent file casing
+    "outDir": "./dist", // Output directory for compiled JavaScript files
+    "rootDir": "./src", // Root directory of your TypeScript source files
+    "baseUrl": ".", // Base URL for module resolution
+    "types": ["node"], // Include Node.js types
+    "resolveJsonModule": true // Allows importing JSON files as modules
+  },
+  "include": ["src/**/*.ts", "src/**/*.graphql"], // Include all TypeScript and GraphQL files in src
+  "exclude": ["node_modules"] // Exclude node_modules from compilation
+}
